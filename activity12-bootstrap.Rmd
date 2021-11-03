@@ -1,6 +1,6 @@
 ---
 title: "Activity 12"
-author: "Name"
+author: "Meghan Nash"
 output: github_document
 ---
 
@@ -13,6 +13,11 @@ knitr::opts_chunk$set(error = TRUE)
 
 In this activity you will be bootstrapping - a form of statistical inference that uses resampling methods.
 First, you will need `{tidyverse}` and `{infer}`.
+
+```{r loading_library}
+library(tidyverse)
+library(infer)
+```
 
 
 ### Data
