@@ -74,31 +74,37 @@ ggplot(data = gss, mapping = aes(x = educ, y = ..density..)) +
 ```
 
 
-**Response**: The center is between 11 to 15 years, the spread is barely left skewed as there are a tiny number of responses less than 5 years, and the shape is generally a bell curve but somewhat binomial for how many there are at 
+**Response**: The center of the data is between 11 to 16 years. The spread of the data is barely left skewed as there are a tiny number of responses less than 6 years. The shape of the data is generally a bell curve, but somewhat binomial for how many there are at 11/12 years and 16 years, and a dip at 13/14 years.
 
 
 Suppose we're interested in making inference about the typical number of years of education that a person has completed and this is our representative sample.
 Is the mean a good statistic to use here to describe the typical value of salary?
 Why or why not?
 
-**Response**:
+**Response**: The mean would be a good stat to use here since the skewness to the left is only barely. 
 
 
 Recall from your introductory statistics course that a one-sample *t*-test requires that the sample mean is Normally distributed.
 Does this assumption seem reasonable for the mean number of years of education?
 Why or why not?
 
-***Response**:
+***Response**: This assumption does seem reasonable since the skew is so minor and the histogram is roughly bell shaped (even if it looks a tiny bit binomial). In general, the histogram is a bell shape, so the assumption is met.
 
 
 Since our sample size is so large, the distribution of the *sample mean* is approximately Normal (the CLT!).
 The `t.test` function can be used to do a one-sample *t*-test and to find a 90% confidence interval for the mean number of years of education that US adults complete.
 Use this function to construct a 90% confidence interval for the mean number of years of education that US adults complete.
 
+```{r t_test}
+#base R method - used bc less typing
+t.test(gss$educ, conf.level = 0.90)
+
+##newer method - 1 is the mean, use group there if want to do by group
+#t.test(extra ~ 1, data = sleep)
+```
 
 
-
-**Response**:
+**Response**: We are 90% confident that the mean number of years of education that US adults complete is between 13.64601 and 13.82845 years.
 
 
 ### Bootstrapping
@@ -136,19 +142,24 @@ Using `sample` and one of: (`replicate`, `purrr:rerun`, or `purrr::map`), genera
 Then, use the appropriate `purrr::map` function to calculate the mean for each of the bootstrap samples.
 The last thing you want is those samples to change every time you knit your document because your interpretations might be slightly different so you will need to set a seed that is your birthday in `yymmdd` format (your instructor's seed would be set to the number `851217`).
 
+```{r using_purrr_functions}
 
-
+```
 
 
 Now, use the `quantile` function with appropriate `probs` to get construct a 90% bootstrap confidence interval for the mean number of years of education that US adults complete.
 You will need to give some thought about what the lower and upper quantiles would be to identify the middle 90%.
 
+```{r getting_CI_quantiles}
 
-
+```
 
 
 Compare this bootstrap interval to your `t.test` confidence interval from above.
 
+```{r bootstrap_ttest_CIinterval}
+
+```
 
 
 ## Challenge: Other statistics

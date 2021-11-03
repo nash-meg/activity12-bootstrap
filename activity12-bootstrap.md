@@ -121,24 +121,29 @@ ggplot(data = gss, mapping = aes(x = educ, y = ..density..)) +
 
 ![](activity12-bootstrap_files/figure-gfm/histogram-1.png)<!-- -->
 
-**Response**: The center is between 11 to 15 years, the spread is barely
-left skewed as there are a tiny number of responses less than 5 years,
-and the shape is generally a bell curve but somewhat binomial for how
-many there are at
+**Response**: The center of the data is between 11 to 16 years. The
+spread of the data is barely left skewed as there are a tiny number of
+responses less than 6 years. The shape of the data is generally a bell
+curve, but somewhat binomial for how many there are at 11/12 years and
+16 years, and a dip at 13/14 years.
 
 Suppose we’re interested in making inference about the typical number of
 years of education that a person has completed and this is our
 representative sample. Is the mean a good statistic to use here to
 describe the typical value of salary? Why or why not?
 
-**Response**:
+**Response**: The mean would be a good stat to use here since the
+skewness to the left is only barely.
 
 Recall from your introductory statistics course that a one-sample
 *t*-test requires that the sample mean is Normally distributed. Does
 this assumption seem reasonable for the mean number of years of
 education? Why or why not?
 
-\***Response**:
+\***Response**: This assumption does seem reasonable since the skew is
+so minor and the histogram is roughly bell shaped (even if it looks a
+tiny bit binomial). In general, the histogram is a bell shape, so the
+assumption is met.
 
 Since our sample size is so large, the distribution of the *sample mean*
 is approximately Normal (the CLT!). The `t.test` function can be used to
@@ -147,7 +152,31 @@ mean number of years of education that US adults complete. Use this
 function to construct a 90% confidence interval for the mean number of
 years of education that US adults complete.
 
-**Response**:
+``` r
+#base R method - used bc less typing
+t.test(gss$educ, conf.level = 0.90)
+```
+
+    ## 
+    ##  One Sample t-test
+    ## 
+    ## data:  gss$educ
+    ## t = 247.78, df = 2857, p-value < 2.2e-16
+    ## alternative hypothesis: true mean is not equal to 0
+    ## 90 percent confidence interval:
+    ##  13.64601 13.82845
+    ## sample estimates:
+    ## mean of x 
+    ##  13.73723
+
+``` r
+##newer method - 1 is the mean, use group there if want to do by group
+#t.test(extra ~ 1, data = sleep)
+```
+
+**Response**: We are 90% confident that the mean number of years of
+education that US adults complete is between 13.64601 and 13.82845
+years.
 
 ### Bootstrapping
 
