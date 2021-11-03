@@ -41,6 +41,9 @@ If you open the `.gitignore` file in your Activity repo, you'll see that the dat
 - Copy this file to a `data` folder in your RStudio Server project - you will need to create this folder in your project.
 - Note that even though you made a change in your files by adding the data, `gss2016.csv` does not appear in your Git pane. This is because it's being ignored by git (you can verify this by looking at line 6 of the `.gitignore` file).
 
+## Note for me:
+To transfer the file, had to go through the files directory in the bottom right > home > SharedProjects > etc, then check the box, more dropdown in the window's bar, copy to, select my data folder
+
 Below is a `load-data` R chunk that reads in this file.
 
 ```{r load-data, message=FALSE}
@@ -63,10 +66,15 @@ Our variable of interest for this Activity is going to be `educ` which is the nu
 Plot a histogram of `educ` with an overlaying density.
 Comment on the center, spread, and shape.
 
+```{r histogram}
+ggplot(data = gss, mapping = aes(x = educ, y = ..density..)) +
+  geom_histogram(alpha=0.5) + 
+  #trying to label the histogram x axis better to see which bars are for which number. Issue is the bars simply do not line up with the numbers? Confused
+  scale_x_continuous(breaks = seq(0,30, by = 1))
+```
 
 
-
-**Response**:
+**Response**: The center is between 11 to 15 years, the spread is barely left skewed as there are a tiny number of responses less than 5 years, and the shape is generally a bell curve but somewhat binomial for how many there are at 
 
 
 Suppose we're interested in making inference about the typical number of years of education that a person has completed and this is our representative sample.

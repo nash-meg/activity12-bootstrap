@@ -63,6 +63,12 @@ file, `gss2016.csv`, is already listed there.
     because it’s being ignored by git (you can verify this by looking at
     line 6 of the `.gitignore` file).
 
+## Note for me:
+
+To transfer the file, had to go through the files directory in the
+bottom right &gt; home &gt; SharedProjects &gt; etc, then check the box,
+more dropdown in the window’s bar, copy to, select my data folder
+
 Below is a `load-data` R chunk that reads in this file.
 
 ``` r
@@ -72,8 +78,6 @@ gss <- read_csv(here::here("data", "gss2016.csv"),
                guess_max = 2867) %>%
   select(harass5, educ, born, polviews, advfront)
 ```
-
-    ## Error: '/home/nashmeg/STA 418/Activities/activites/activity12-bootstrap/data/gss2016.csv' does not exist.
 
 Notice that this chunk does three things:
 
@@ -104,7 +108,23 @@ is the number of years of education the respondent has completed. Plot a
 histogram of `educ` with an overlaying density. Comment on the center,
 spread, and shape.
 
-**Response**:
+``` r
+ggplot(data = gss, mapping = aes(x = educ, y = ..density..)) +
+  geom_histogram(alpha=0.5) + 
+  #trying to label the histogram x axis better to see which bars are for which number. Issue is the bars simply do not line up with the numbers? Confused
+  scale_x_continuous(breaks = seq(0,30, by = 1))
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+    ## Warning: Removed 9 rows containing non-finite values (stat_bin).
+
+![](activity12-bootstrap_files/figure-gfm/histogram-1.png)<!-- -->
+
+**Response**: The center is between 11 to 15 years, the spread is barely
+left skewed as there are a tiny number of responses less than 5 years,
+and the shape is generally a bell curve but somewhat binomial for how
+many there are at
 
 Suppose we’re interested in making inference about the typical number of
 years of education that a person has completed and this is our
@@ -141,10 +161,6 @@ gss_educ <- gss %>%
   filter(!is.na(educ)) %>% 
   select(educ)
 ```
-
-    ## Error: Problem with `filter()` input `..1`.
-    ## ℹ Input `..1` is `!is.na(educ)`.
-    ## x object 'educ' not found
 
 From your readings, you saw how to use computer simulations of
 resampling (using `infer::rep_sample_n`) to construct 1,000 bootstrap
